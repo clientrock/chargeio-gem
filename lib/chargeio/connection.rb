@@ -72,7 +72,7 @@ module ChargeIO::Connection
   end
 
   def process_list_response(klass, response, key)
-    return nil if response.nil? or response.code == 204
+    return nil if response&.body.nil? or response.code == 204
     handle_not_authorized response if response.code == 401
     handle_not_found response if response.code == 404
     handle_server_error response if response.code >= 500
@@ -89,7 +89,7 @@ module ChargeIO::Connection
   end
 
   def process_response(klass, response)
-    return nil if response.nil? or response.code == 204
+    return nil if response&.body.nil? or response.code == 204
     handle_not_authorized response if response.code == 401
     handle_not_found response if response.code == 404
     handle_server_error response if response.code >= 500
